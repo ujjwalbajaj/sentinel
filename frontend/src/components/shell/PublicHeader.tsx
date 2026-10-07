@@ -18,9 +18,11 @@ export function PublicHeader() {
             Pricing
           </Link>
         )}
-        <Link href="/login" className={buttonClass.secondary}>
-          Log in
-        </Link>
+        {PUBLIC_MODE ? null : (
+          <Link href="/login" className={buttonClass.secondary}>
+            Log in
+          </Link>
+        )}
         {PUBLIC_MODE ? (
           <a href={README} className={buttonClass.primary} target="_blank" rel="noreferrer">
             Protect my protocol
