@@ -37,7 +37,7 @@ export function ProbeTrace({ trace, motion, onTick }: { trace: TraceState | null
         {trace.frames.map((frame, index) => {
           const on = !motion || index < shown;
           return (
-          <div key={`${frame.depth}-${frame.label}-${index}`} className={`${on ? "on" : ""} ${frame.reentry ? "re" : ""}`} style={{ paddingLeft: frame.depth * 16 }}>
+          <div key={`${frame.depth}-${frame.label}-${index}`} className={`${on ? "on" : ""} ${frame.reentry ? "re" : ""}`} style={{ paddingLeft: `${frame.depth}rem` }}>
             {frame.depth ? "└ " : ""}
             {frame.label}
             {frame.reentry ? <b>↻ re-entered</b> : null}

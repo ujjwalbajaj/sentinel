@@ -6,6 +6,7 @@ import { buttonClass } from "@/lib/utils";
 
 const GITHUB = "https://github.com/ujjwalbajaj/sentinel";
 const DRIVE = "https://drive.google.com/file/d/1MaewP4XTpBDA78kOE4kt85nXGQ5llXms/view?usp=sharing";
+const SLIDES = "https://drive.google.com/file/d/1TamY2yQI6sHvz2Jbo-pwVfLB98dxlVx_/view?usp=sharing";
 const PAUSE_TX = "https://bscscan.com/tx/0x4121c62ed7b0d2190b425c22c836ba9eca51d6167196c8dbc851682843abb84a";
 const STRIKE_TX = "https://bscscan.com/tx/0x7a38402d4c9a12315b7a378d200b9ed619d655f90eedef452ae4833d73c07e92";
 const PROBE_BLOCK = "https://bscscan.com/block/126072959";
@@ -89,7 +90,7 @@ export function LandingView() {
     <div className="overflow-x-clip">
       <PublicHeader />
       <main>
-        <section className="mx-auto grid max-w-6xl gap-8 px-4 py-16 lg:px-8 lg:py-24">
+        <section className="mx-auto grid max-w-6xl min-[1440px]:max-w-7xl gap-8 px-4 py-16 lg:px-8 lg:py-24">
           <div className="max-w-3xl">
             <p className="text-sm font-medium text-info">
               {PUBLIC_MODE ? "The airbag of DeFi · Chainlink CRE · NOWNodes" : "Chainlink CRE · NOWNodes"}
@@ -104,6 +105,9 @@ export function LandingView() {
               </Link>
               <a href={GITHUB} className={buttonClass.secondary} target="_blank" rel="noreferrer">
                 GitHub
+              </a>
+              <a href={SLIDES} className={buttonClass.secondary} target="_blank" rel="noreferrer">
+                Slides
               </a>
             </div>
           </div>
@@ -127,7 +131,7 @@ export function LandingView() {
         </section>
 
         <section className="border-t border-border">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+          <div className="mx-auto max-w-6xl min-[1440px]:max-w-7xl px-4 py-16 lg:px-8">
             <h2 className="font-display text-3xl font-medium">Every big hack has a rehearsal.</h2>
             <ol className="mt-8 flex flex-col gap-3 md:flex-row md:items-stretch">
               {rehearsal.map((step, index) => (
@@ -153,7 +157,7 @@ export function LandingView() {
         </section>
 
         <section id="how" className="scroll-mt-6 border-t border-border">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+          <div className="mx-auto max-w-6xl min-[1440px]:max-w-7xl px-4 py-16 lg:px-8">
             <h2 className="font-display text-3xl font-medium">Eyes · Brain · Hand</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {pillars.map((pillar) => (
@@ -171,7 +175,7 @@ export function LandingView() {
         </section>
 
         <section className="border-t border-border">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+          <div className="mx-auto max-w-6xl min-[1440px]:max-w-7xl px-4 py-16 lg:px-8">
             <h2 className="font-display text-3xl font-medium">Proof on BNB Chain mainnet · 6 Oct 2026</h2>
             <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
               {stats.map((stat) => (
@@ -202,7 +206,7 @@ export function LandingView() {
         </section>
 
         <section className="border-t border-border">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+          <div className="mx-auto max-w-6xl min-[1440px]:max-w-7xl px-4 py-16 lg:px-8">
             <h2 className="font-display text-3xl font-medium">Re-entrancy is the tip of the iceberg.</h2>
             <ul className="mt-8 flex flex-wrap gap-2">
               {threats.map((threat) => (
@@ -218,7 +222,7 @@ export function LandingView() {
         </section>
 
         <section className="border-t border-border">
-          <div className="mx-auto max-w-6xl px-4 py-16 lg:px-8">
+          <div className="mx-auto max-w-6xl min-[1440px]:max-w-7xl px-4 py-16 lg:px-8">
             <h2 className="font-display text-3xl font-medium">Alert vs. doer</h2>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               {compare.map((column) => (
@@ -243,7 +247,7 @@ export function LandingView() {
         {PUBLIC_MODE ? null : (
           <>
             <section className="border-t border-border">
-              <div className="mx-auto grid max-w-6xl gap-4 px-4 py-16 lg:grid-cols-2 lg:px-8">
+              <div className="mx-auto grid max-w-6xl min-[1440px]:max-w-7xl gap-4 px-4 py-16 lg:grid-cols-2 lg:px-8">
                 <div>
                   <h2 className="font-display text-3xl font-medium">Pause-only permission</h2>
                   <p className="mt-3 text-textMuted">The pause decision is a Chainlink CRE consensus, not a call from one server.</p>
@@ -270,7 +274,7 @@ export function LandingView() {
             </section>
 
             <section className="border-t border-border">
-              <div className="mx-auto flex max-w-6xl flex-wrap gap-3 px-4 py-10 lg:px-8">
+              <div className="mx-auto flex max-w-6xl min-[1440px]:max-w-7xl flex-wrap gap-3 px-4 py-10 lg:px-8">
                 <a className="rounded-full border border-border bg-panel px-4 py-2 text-sm" href="https://basescan.org" target="_blank" rel="noreferrer">
                   Base · basescan.org
                 </a>
@@ -281,7 +285,7 @@ export function LandingView() {
             </section>
 
             <section id="pricing" className="border-t border-border">
-              <div className="mx-auto grid max-w-6xl gap-4 px-4 py-16 lg:grid-cols-2 lg:px-8">
+              <div className="mx-auto grid max-w-6xl min-[1440px]:max-w-7xl gap-4 px-4 py-16 lg:grid-cols-2 lg:px-8">
                 <div className="rounded-card border border-border bg-panel p-5">
                   <h2 className="font-display text-3xl font-medium">&lt; 0.1% of what it protects</h2>
                   <p className="mt-3 text-textMuted">0.08% of protected TVL per year, billed monthly.</p>
@@ -304,7 +308,7 @@ export function LandingView() {
         )}
       </main>
       <footer className="border-t border-border px-4 py-8 text-sm text-textMuted lg:px-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+        <div className="mx-auto flex max-w-6xl min-[1440px]:max-w-7xl flex-wrap items-center justify-between gap-3">
           <p>© 2026 USquare. SENTINEL.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/terms">Terms</Link>
@@ -333,6 +337,9 @@ function JudgeNotice() {
         </a>
         <a href={DRIVE} className={buttonClass.secondary} target="_blank" rel="noreferrer">
           Drive video
+        </a>
+        <a href={SLIDES} className={buttonClass.secondary} target="_blank" rel="noreferrer">
+          Slides (PPT)
         </a>
       </div>
     </aside>

@@ -62,10 +62,10 @@ export function SignedReport({ report, motion, onTick }: { report: ReportState |
       <div className="wr-don">
         <div className="wr-nodes" aria-hidden>
           {NODES.map((node, index) => (
-            <i key={index} className={index < shownLit ? "on" : ""} style={{ left: node.left, top: node.top }} />
+            <i key={index} className={index < shownLit ? "on" : ""} style={{ left: `${node.left / 16}rem`, top: `${node.top / 16}rem` }} />
           ))}
           <div className={`core${shownCore ? " on" : ""}`}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6E9BFF" strokeWidth="2">
+            <svg width="1.125rem" height="1.125rem" viewBox="0 0 24 24" fill="none" stroke="#6E9BFF" strokeWidth="2">
               <path d="M4 7h16v10H4z" />
               <path d="M4 7l8 6 8-6" />
             </svg>

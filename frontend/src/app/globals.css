@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 100%;
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 112.5%;
+  }
+}
+
+@media (min-width: 1800px) {
+  html {
+    font-size: 125%;
+  }
+}
+
 :root {
   --font-display: "Space Grotesk", sans-serif;
   --font-sans: "IBM Plex Sans", sans-serif;
