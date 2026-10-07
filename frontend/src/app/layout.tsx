@@ -11,11 +11,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "SENTINEL",
+    default: "SENTINEL · The airbag of DeFi",
     template: "%s · SENTINEL",
   },
-  description:
-    "SENTINEL simulates every suspicious call and pauses your protocol before the strike. Orchestrated by Chainlink CRE, powered by NOWNodes.",
+  description: "Real-time DeFi exploit shield. Eyes by NOWNodes, brain by Chainlink CRE, hand by the Guardian contract.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
