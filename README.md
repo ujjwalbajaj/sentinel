@@ -4,6 +4,9 @@
 
 Every big DeFi exploit has a rehearsal: the attacker funds a fresh wallet, deploys an exploit contract, sends a **small test transaction**, and only then sends the real strike. SENTINEL watches for that test, simulates what the strike would do, and **pauses the vault before the strike lands**. The decision is made by a **Chainlink CRE** workflow, not by one server, and the on-chain responder can only do one thing: pause.
 
+### 🌐 Live demo: [www.sentinel-defi.xyz](https://www.sentinel-defi.xyz) (public, read-only)
+### ▶ [Watch the 3-minute demo (recorded live on BNB Chain mainnet)](https://drive.google.com/file/d/1MaewP4XTpBDA78kOE4kt85nXGQ5llXms/view?usp=sharing)
+
 Built at **TOKEN2049 Singapore, Origins Hackathon** (Chainlink CRE track · NOWNodes track) by Team USquare.
 
 ---
