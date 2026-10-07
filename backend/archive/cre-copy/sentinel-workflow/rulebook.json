@@ -1,0 +1,31 @@
+{
+  "pauseThreshold": 80,
+  "freshWallet": {
+    "weight": 18,
+    "maxAgeSeconds": 1800,
+    "maxNonce": 2
+  },
+  "mixerFunding": {
+    "weight": 22,
+    "addresses": [
+      "0x4444444444444444444444444444444444444444",
+      "0x722122df12d4e14e13ac3b6895a86e84145b6967",
+      "0xd90e2f925da726b50c4ed8d0fb90ad053324f31b"
+    ]
+  },
+  "flashLoan": {
+    "weight": 15
+  },
+  "reentrancy": {
+    "weight": 25
+  },
+  "abnormalDelta": {
+    "weight": 21,
+    "minDropBps": 1000
+  },
+  "testBeforeStrike": {
+    "weight": 10,
+    "maxTestToDrainRatioBps": 500
+  },
+  "instructions": "You score one simulated EVM call for SENTINEL. Use only this document. Sum the weights of the signals that fire, cap the total at 100, and treat that total as probability. Set pause to true only when probability is greater than or equal to pauseThreshold. freshWallet fires when walletAgeSeconds is not null and is under freshWallet.maxAgeSeconds, or when deployerNonce is not null and is less than or equal to freshWallet.maxNonce. mixerFunding fires when fundingSource, compared case-insensitively, is one of mixerFunding.addresses. flashLoan fires when any call input starts with one of these 4-byte selectors: flashLoan(address,address,uint256,bytes), flashLoan(address,address[],uint256[],uint256[],address,bytes,uint16), flashLoan(address,uint256,bytes), onFlashLoan(address,address,uint256,uint256,bytes). reentrancy fires when the protected vault address appears twice on one call stack. abnormalDelta fires when the vault balance falls by at least abnormalDelta.minDropBps (10000 = 100%). testBeforeStrike fires when the observed transaction value is small relative to that simulated drain, using testBeforeStrike.maxTestToDrainRatioBps. Write a plain-English explanation. When abnormalDelta fires, lead with the drain percent of the vault, the dollar amount (tvlUsd * drop / 10000), and the probability. Return a single JSON object {\"probability\": number, \"pause\": boolean, \"explanation\": string} and no other text."
+}

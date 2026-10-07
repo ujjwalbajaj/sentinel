@@ -1,0 +1,11 @@
+{
+  "authorizedEvmAddress": "0x0000000000000000000000000000000000000000",
+  "secretsOwner": "0x0000000000000000000000000000000000000000",
+  "llmUrl": "https://api.openai.com/v1/chat/completions",
+  "llmModel": "gpt-4o-mini",
+  "gasLimit": "500000",
+  "guardians": {
+    "binance_smart_chain-testnet": "0x0000000000000000000000000000000000000000",
+    "ethereum-testnet-sepolia-base-1": "0x0000000000000000000000000000000000000000"
+  }
+}

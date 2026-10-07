@@ -1,0 +1,1 @@
+ALTER TABLE "Incident" ADD COLUMN "stages" JSONB NOT NULL DEFAULT '[]';

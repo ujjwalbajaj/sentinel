@@ -1,0 +1,14 @@
+# https://docs.chain.link/cre/reference/project-configuration-ts
+staging-settings:
+  rpcs:
+    - chain-name: binance_smart_chain-testnet
+      url: ${BSC_TESTNET_RPC}
+    - chain-name: ethereum-testnet-sepolia-base-1
+      url: ${BASE_SEPOLIA_RPC}
+
+production-settings:
+  rpcs:
+    - chain-name: binance_smart_chain-testnet
+      url: ${BSC_TESTNET_RPC}
+    - chain-name: ethereum-testnet-sepolia-base-1
+      url: ${BASE_SEPOLIA_RPC}

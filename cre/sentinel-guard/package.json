@@ -1,0 +1,25 @@
+{
+  "name": "typescript-simple-template",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "sync": "bun ../scripts/sync-from-contracts.ts",
+    "rpc:check": "bun ../scripts/rpc-check.ts",
+    "sim:attack:base": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/attack.base.json",
+    "sim:attack:bsc": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/attack.bsc.json",
+    "sim:control": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/control.json",
+    "sim:below": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/below-threshold.json",
+    "sim:attack:base:broadcast": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/attack.base.json --broadcast",
+    "sim:attack:bsc:broadcast": "cre workflow simulate sentinel-guard -R .. -e ../.env -T staging-settings --non-interactive --trigger-index 0 --http-payload ./fixtures/attack.bsc.json --broadcast"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@chainlink/cre-sdk": "^1.22.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "chainId": 56,
+  "chainName": "BNB Chain",
+  "deployBlock": 126023063,
+  "deployer": "0x59Fdc93a6add3f79981Cda4aB3791c4b33679845",
+  "forwarder": "0x6f3239bbB26e98961e1115aBa83f8a282e5508C8",
+  "forwarderKind": "mock",
+  "guardian": "0x4Ab9F9cD8B5394Bece5b448dbebdC00E52C45748",
+  "mixer": "0x89CBF3bfB3943274271635aa887A467DaDc6077E",
+  "timestamp": 1791273021,
+  "vault": "0x82979c777506D979B365Ce597c1F595251B609b3",
+  "vaultAdmin": "0xdbaa08367bdB5C3941E62cB437C970B9B8a1484F",
+  "txs": {
+    "vault": {
+      "hash": "0x438d68fc336d867ef002ffda5a9858f26fe542afee103af0bf7a40461d1115a5",
+      "block": 126023063,
+      "gasUsed": 833839,
+      "spentWei": "41691950000000"
+    },
+    "guardian": {
+      "hash": "0x6546fb9fa51b574ac8b40c67313e1e0976db724314d3a60c5487d5dc8505192d",
+      "block": 126023310,
+      "gasUsed": 1241745,
+      "spentWei": "62087250000000"
+    },
+    "mixer": {
+      "hash": "0xfc2607cc3d77f8bdd8db27aa5a55a39a2dc4b2af576fd0cbe91f02a281c47f45",
+      "block": 126023310,
+      "gasUsed": 269449,
+      "spentWei": "13472450000000"
+    }
+  }
+}

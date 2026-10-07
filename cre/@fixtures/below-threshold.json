@@ -1,0 +1,15 @@
+{
+  "incidentId": "0xdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "chain": "base",
+  "vault": "0x1111111111111111111111111111111111111111",
+  "suspectTxHash": "0x4444444444444444444444444444444444444444444444444444444444444444",
+  "attacker": "0x3333333333333333333333333333333333333333",
+  "features": {
+    "walletAgeSeconds": 600,
+    "mixerFunded": true,
+    "reentrancyDetected": false,
+    "vaultBalanceDeltaBps": 0,
+    "flashLoanEntry": true,
+    "newContractTarget": false
+  }
+}

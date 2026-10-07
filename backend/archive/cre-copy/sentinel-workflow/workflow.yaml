@@ -1,0 +1,16 @@
+# Staging simulates the reference scorer locally. Production is the confidential workflow.
+staging-settings:
+  user-workflow:
+    workflow-name: "sentinel-pause-staging"
+  workflow-artifacts:
+    workflow-path: "./main.staging.ts"
+    config-path: "./config.staging.json"
+    secrets-path: ""
+
+production-settings:
+  user-workflow:
+    workflow-name: "sentinel-pause"
+  workflow-artifacts:
+    workflow-path: "./main.ts"
+    config-path: "./config.production.json"
+    secrets-path: "../secrets.yaml"

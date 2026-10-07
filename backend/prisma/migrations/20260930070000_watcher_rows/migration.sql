@@ -1,0 +1,2 @@
+ALTER TABLE "Protocol" ADD COLUMN "adminAddress" TEXT NOT NULL DEFAULT '';
+ALTER TABLE "Incident" ADD COLUMN "source" TEXT NOT NULL DEFAULT 'detector';

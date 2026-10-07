@@ -1,0 +1,18 @@
+# Compiler output
+cache/
+out/
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+keys/
+.spend-pending/
+
+# Broadcast dry runs
+broadcast/*/dry-run
+broadcast/**/dry-run
+
+# Local Anvil broadcasts
+/broadcast/*/31337/

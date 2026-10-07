@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "sim:attack:base": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/attack.base.json",
+    "sim:attack:bsc": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/attack.bsc.json",
+    "sim:control": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/control.json",
+    "sim:below": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/below-threshold.json",
+    "sim:attack:base:broadcast": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/attack.base.json --broadcast",
+    "sim:attack:bsc:broadcast": "cre workflow simulate sentinel-guard -T staging-settings --non-interactive --trigger-index 0 --http-payload @sentinel-guard/fixtures/attack.bsc.json --broadcast"
+  }
+}

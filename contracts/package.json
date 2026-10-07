@@ -1,0 +1,32 @@
+{
+  "name": "sentinel-contracts",
+  "private": true,
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test -vvv",
+    "deploy:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Deploy",
+    "deploy:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Deploy",
+    "allowlist:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Allowlist",
+    "allowlist:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Allowlist",
+    "onboard:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Onboard",
+    "onboard:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Onboard",
+    "seed:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Seed",
+    "seed:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Seed",
+    "reset:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Reset",
+    "reset:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Reset",
+    "rescue:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script Rescue",
+    "rescue:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script Rescue",
+    "set-forwarder:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script SetForwarder",
+    "set-forwarder:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script SetForwarder",
+    "lock-workflow:bsc": "powershell -File scripts/forge-run.ps1 -Chain bsc -Script LockWorkflow",
+    "lock-workflow:base": "powershell -File scripts/forge-run.ps1 -Chain base -Script LockWorkflow",
+    "export-abi": "powershell -File scripts/export-abi.ps1",
+    "sync": "powershell -File scripts/sync-shared.ps1",
+    "balances": "powershell -File scripts/balances.ps1",
+    "gas": "powershell -File scripts/gas.ps1",
+    "distribute:bsc": "powershell -File scripts/distribute.ps1 -Chain bsc",
+    "distribute:base": "powershell -File scripts/distribute.ps1 -Chain base",
+    "sweep:bsc": "powershell -File scripts/SweepAll.ps1 -Chain bsc",
+    "sweep:base": "powershell -File scripts/SweepAll.ps1 -Chain base"
+  }
+}

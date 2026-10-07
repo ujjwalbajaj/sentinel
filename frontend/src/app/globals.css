@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+  color-scheme: dark;
+}
+
+body {
+  background: #0b0e13;
+  color: #e6e9ef;
+}
+
+:focus-visible {
+  outline: 2px solid #8fb0ff;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: #16264a;
+  color: #e6e9ef;
+}
+
+* {
+  scrollbar-color: #232a35 transparent;
+}
+
+@keyframes sentinel-step {
+  0%,
+  15% {
+    border-color: #232a35;
+    color: #97a1b0;
+  }
+  28%,
+  78% {
+    border-color: #1f4a36;
+    color: #e6e9ef;
+  }
+  100% {
+    border-color: #232a35;
+    color: #97a1b0;
+  }
+}
+
+@keyframes sentinel-pause {
+  0%,
+  48% {
+    border-color: #232a35;
+    color: #97a1b0;
+  }
+  60%,
+  86% {
+    border-color: #8fb0ff;
+    color: #e6e9ef;
+  }
+  100% {
+    border-color: #232a35;
+    color: #97a1b0;
+  }
+}
+
+@keyframes flash-risk {
+  0% {
+    background-color: #1e1215;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-flash-risk {
+  animation: flash-risk 1.2s ease;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

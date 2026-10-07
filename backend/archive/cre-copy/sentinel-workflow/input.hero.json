@@ -1,0 +1,14 @@
+{
+  "protocolName": "VaultX",
+  "vaultTvlUsd": 37368421.05263158,
+  "walletAgeSeconds": 1140,
+  "deployerNonce": 1,
+  "fundedByMixer": true,
+  "flashLoanEntry": false,
+  "reentrancy": true,
+  "vaultBalanceDropBps": 3800,
+  "testSizedCall": true,
+  "chainSelectorName": "binance_smart_chain-testnet",
+  "vault": "0x1111111111111111111111111111111111111111",
+  "alertId": "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

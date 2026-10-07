@@ -1,0 +1,15 @@
+{
+  "incidentId": "0xe6c713f942d4ba7cc36c75cc7e1d67ea149c48069375bfc3ce0c5790a93c789c",
+  "chain": "base",
+  "vault": "0x8B658C17CcD1E9dF830A70637a57D8449B3e2D29",
+  "suspectTxHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
+  "attacker": "0x3333333333333333333333333333333333333333",
+  "features": {
+    "walletAgeSeconds": 1140,
+    "mixerFunded": true,
+    "reentrancyDetected": true,
+    "vaultBalanceDeltaBps": 3800,
+    "flashLoanEntry": false,
+    "newContractTarget": false
+  }
+}

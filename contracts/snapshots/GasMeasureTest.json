@@ -1,0 +1,13 @@
+{
+  "deploy Attacker": "7137",
+  "deploy Guardian": "7181",
+  "deploy MockForwarder": "204422",
+  "deploy MockMixer": "7096",
+  "deploy VulnerableVault": "1007",
+  "grantRole": "198880",
+  "onReport": "104465",
+  "probe": "115266",
+  "registerVault": "86585",
+  "strike": "175380",
+  "unpause": "34615"
+}

@@ -1,0 +1,16 @@
+{
+  "pauseThreshold": 80,
+  "authorizedEVMAddress": "0xcdC402D5B4847eD12be544e3BBE8D2f71c57042c",
+  "requireAuth": true,
+  "gasLimit": "500000",
+  "chains": {
+    "bsc": {
+      "chainSelectorName": "binance_smart_chain-mainnet",
+      "guardian": "0x4Ab9F9cD8B5394Bece5b448dbebdC00E52C45748"
+    },
+    "base": {
+      "chainSelectorName": "ethereum-mainnet-base-1",
+      "guardian": "0x3DaF8728624949179E0C62BDE12286f7EB900186"
+    }
+  }
+}

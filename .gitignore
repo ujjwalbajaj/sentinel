@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+cache/
+dist/
+build/
+.env
+.env.*
+!.env.example
+*.log
+*.key
+*.pem
+secrets.yaml
+.cre_build_tmp.js

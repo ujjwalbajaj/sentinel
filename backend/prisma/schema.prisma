@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String     @id @default(cuid())
+  walletAddress String     @unique
+  email         String?
+  name          String     @default("")
+  org           String     @default("")
+  role          String     @default("")
+  createdAt     DateTime   @default(now())
+  protocols     Protocol[]
+}
+
+model Protocol {
+  id              String     @id @default(cuid())
+  ownerId         String
+  owner           User       @relation(fields: [ownerId], references: [id])
+  name            String
+  chainId         Int
+  vaultAddress    String
+  guardianAddress String
+  adminAddress    String     @default("")
+  status          String     @default("pending")
+  createdAt       DateTime   @default(now())
+  incidents       Incident[]
+
+  @@unique([chainId, vaultAddress])
+}
+
+model WatchedWallet {
+  id            String    @id @default(cuid())
+  address       String
+  chainId       Int
+  firstFundedAt DateTime?
+  fundingSource String
+  fundingTx     String?
+
+  @@unique([chainId, address])
+}
+
+model Incident {
+  id               String    @id
+  chainId          Int
+  protocolId       String
+  protocol         Protocol  @relation(fields: [protocolId], references: [id])
+  suspectTxHash    String
+  attacker         String
+  attackerContract String    @default("")
+  score            Int
+  reasons          Json
+  features         Json
+  trace            Json
+  explanation      String    @default("")
+  status           String
+  source           String    @default("detector")
+  creRunLog        String    @default("")
+  pauseTxHash      String?
+  strikeTxHash     String?
+  detectedAt       DateTime  @default(now())
+  sentAt           DateTime?
+  pausedAt         DateTime?
+  strikeAt         DateTime?
+  valueAtRiskWei   String    @default("0")
+  vaultBalanceWei  String    @default("0")
+  stages           Json      @default("[]")
+
+  @@index([chainId, status])
+  @@index([chainId, suspectTxHash])
+  @@index([chainId, attacker])
+  @@index([chainId, attackerContract])
+}
+
+model ActivityEvent {
+  id          String   @id @default(cuid())
+  chainId     Int
+  txHash      String
+  blockNumber String
+  type        String
+  from        String
+  to          String
+  valueWei    String
+  riskScore   Int?
+  result      String
+  at          DateTime @default(now())
+
+  @@unique([chainId, txHash, type, from, result, valueWei])
+  @@index([chainId, at])
+  @@index([chainId, from])
+  @@index([chainId, txHash])
+}
+
+model SpendLog {
+  id      String   @id @default(cuid())
+  chainId Int
+  wallet  String
+  action  String
+  gasUsed String
+  costWei String
+  txHash  String
+  at      DateTime @default(now())
+}
+
+model ChainCursor {
+  chainId   Int    @id
+  lastBlock String
+}
+
+model DemoWallet {
+  id         String   @id @default(cuid())
+  chainId    Int
+  role       String
+  address    String
+  ciphertext String   @default("")
+  createdAt  DateTime @default(now())
+
+  @@unique([chainId, role])
+  @@unique([chainId, address])
+}
+
+model AuthNonce {
+  id        String   @id @default(cuid())
+  wallet    String
+  nonce     String   @unique
+  expiresAt DateTime
+}
