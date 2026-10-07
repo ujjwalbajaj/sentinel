@@ -16,7 +16,8 @@ import { Timeline } from "@/components/ui/Timeline";
 import { TraceTree } from "@/components/ui/TraceTree";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useIncident, useProtocols, useStats } from "@/hooks/useSentinel";
-import { chainMeta } from "@/lib/chains";
+import { chainMeta, PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { exploitTitle, incidentStatusPill } from "@/lib/labels";
 import { downloadPostMortem } from "@/lib/pdf";
 import { explainTxError } from "@/lib/txError";
@@ -131,7 +132,9 @@ export function IncidentView({ id }: { id: string }) {
           >
             Copy link
           </Button>
-          {session ? (
+          {PUBLIC_MODE ? (
+            <ReadOnlyDemo />
+          ) : session ? (
             <>
               <Button variant="secondary" onClick={() => setFalsePositive(true)} disabled={incident.outcome === "false-positive"}>
                 Mark as false positive

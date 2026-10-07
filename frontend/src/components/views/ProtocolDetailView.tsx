@@ -15,7 +15,8 @@ import { TrendChart } from "@/components/ui/TrendChart";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useVaultReads } from "@/hooks/useVaultReads";
 import { useActivity, useConsole, useIncidents, useProtocols } from "@/hooks/useSentinel";
-import { healthFor } from "@/lib/chains";
+import { healthFor, PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import type { Chain } from "@/lib/types";
 import { outcomePill, pauseMethodLabel, protocolLabel, protocolPill } from "@/lib/labels";
 import { formatUsd } from "@/lib/utils";
@@ -68,9 +69,13 @@ export function ProtocolDetailView({ id }: { id: string }) {
           </div>
         </div>
         <div className="flex gap-2">
-          <Button variant="danger" onClick={() => setPauseOpen(true)}>
-            Pause now
-          </Button>
+          {PUBLIC_MODE ? (
+            <ReadOnlyDemo />
+          ) : (
+            <Button variant="danger" onClick={() => setPauseOpen(true)}>
+              Pause now
+            </Button>
+          )}
           <Button variant="secondary" onClick={() => setTab("Settings")}>
             Settings
           </Button>
@@ -173,7 +178,7 @@ export function ProtocolDetailView({ id }: { id: string }) {
             <h3 className="font-display text-lg font-medium">Thresholds</h3>
             <label className="mt-4 block text-sm">
               Pause threshold <span className="font-mono">{pauseAt}</span>
-              <input className="mt-2 w-full" type="range" min={50} max={100} value={pauseAt} onChange={(event) => setPauseAt(Number(event.target.value))} />
+              <input className="mt-2 w-full" type="range" min={50} max={100} value={pauseAt} disabled={PUBLIC_MODE} onChange={(event) => setPauseAt(Number(event.target.value))} />
             </label>
             <label className="mt-4 block text-sm">
               Alert threshold <span className="font-mono">{alertAt}</span>
@@ -183,34 +188,40 @@ export function ProtocolDetailView({ id }: { id: string }) {
                 min={1}
                 max={pauseAt}
                 value={Math.min(alertAt, pauseAt)}
+                disabled={PUBLIC_MODE}
                 onChange={(event) => setAlertAt(Number(event.target.value))}
               />
             </label>
             <label className="mt-4 flex items-center gap-2 text-sm">
-              <input type="checkbox" checked={autoPause} onChange={(event) => setAutoPause(event.target.checked)} />
+              <input type="checkbox" checked={autoPause} disabled={PUBLIC_MODE} onChange={(event) => setAutoPause(event.target.checked)} />
               Auto-pause {autoPause ? "ON" : "OFF"}
             </label>
             <p className="mt-2 text-xs text-textMuted">Detection rules run inside a Chainlink CRE confidential workflow and are not shown.</p>
-            <Button
-              className="mt-4"
-              onClick={() => {
-                consoleApi.updatePolicy(
-                  protocol.id,
-                  { ...protocol.policy, pauseThreshold: pauseAt, alertThreshold: Math.min(alertAt, pauseAt), autoPause },
-                  {
-                    protocolId: protocol.id,
-                    at: new Date().toISOString(),
-                    block: protocol.lastEventBlock + 1,
-                    who: session?.name ?? "You",
-                    text: `Pause threshold ${pauseAt}, alert threshold ${Math.min(alertAt, pauseAt)}, auto-pause ${autoPause ? "on" : "off"}.`,
-                  },
-                );
-                toast("Policy saved");
-              }}
-            >
-              Save policy
-            </Button>
+            {PUBLIC_MODE ? (
+              <ReadOnlyDemo className="mt-4" />
+            ) : (
+              <Button
+                className="mt-4"
+                onClick={() => {
+                  consoleApi.updatePolicy(
+                    protocol.id,
+                    { ...protocol.policy, pauseThreshold: pauseAt, alertThreshold: Math.min(alertAt, pauseAt), autoPause },
+                    {
+                      protocolId: protocol.id,
+                      at: new Date().toISOString(),
+                      block: protocol.lastEventBlock + 1,
+                      who: session?.name ?? "You",
+                      text: `Pause threshold ${pauseAt}, alert threshold ${Math.min(alertAt, pauseAt)}, auto-pause ${autoPause ? "on" : "off"}.`,
+                    },
+                  );
+                  toast("Policy saved");
+                }}
+              >
+                Save policy
+              </Button>
+            )}
           </Card>
+          {PUBLIC_MODE ? null : (
           <Card className="border-dangerBorder">
             <h3 className="font-display text-lg font-medium text-dangerText">Danger zone</h3>
             <p className="mt-2 text-sm text-textMuted">Removing a protocol stops watching. It does not unpause contracts.</p>
@@ -218,6 +229,7 @@ export function ProtocolDetailView({ id }: { id: string }) {
               Remove protocol
             </Button>
           </Card>
+          )}
         </div>
       ) : null}
 

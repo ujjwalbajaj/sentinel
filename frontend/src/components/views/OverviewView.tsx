@@ -16,7 +16,8 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { SignInButton } from "@/components/auth/SignInButton";
 import { useActivity, useIncidents, useProtocols, useStats } from "@/hooks/useSentinel";
 import { isSignInMessage } from "@/lib/api";
-import { healthFor } from "@/lib/chains";
+import { healthFor, PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { exploitTitle, outcomePill, protocolLabel, protocolPill } from "@/lib/labels";
 import { formatUsd, weiToUsd } from "@/lib/utils";
 import { buttonClass } from "@/lib/utils";
@@ -77,7 +78,9 @@ export function OverviewView() {
             <Link href={`/app/incidents/${active.id}`} className={buttonClass.danger}>
               View incident
             </Link>
-            {session ? (
+            {PUBLIC_MODE ? (
+              <ReadOnlyDemo />
+            ) : session ? (
               <button type="button" className={buttonClass.secondary} onClick={() => setUnpauseId(activeProtocol.id)}>
                 Unpause via multisig
               </button>

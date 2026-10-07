@@ -34,3 +34,4 @@ export const PAUSER_ROLE = keccak256(toBytes("PAUSER_ROLE"));
 
 export const DEMO_ENABLED = process.env.NEXT_PUBLIC_DEMO === "true";
 export const DEMO_TOKEN = process.env.NEXT_PUBLIC_DEMO_TOKEN ?? "";
+export const PUBLIC_MODE = process.env.NEXT_PUBLIC_PUBLIC_MODE === "true";

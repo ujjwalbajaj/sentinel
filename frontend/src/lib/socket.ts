@@ -1,13 +1,13 @@
 "use client";
 
 import { io, type Socket } from "socket.io-client";
-import { getToken } from "./api";
+import { apiBase, getToken } from "./api";
 
 let socket: Socket | null = null;
 
 export function liveSocket() {
   if (typeof window === "undefined") return null;
-  const url = (process.env.NEXT_PUBLIC_WS_URL || "").replace(/\/$/, "");
+  const url = apiBase() || (process.env.NEXT_PUBLIC_WS_URL || "").replace(/\/$/, "");
   if (!url) return null;
   if (!socket) {
     socket = io(`${url}/live`, {

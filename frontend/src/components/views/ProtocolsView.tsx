@@ -11,7 +11,9 @@ import { SignInButton } from "@/components/auth/SignInButton";
 import { useIncidents, useProtocols } from "@/hooks/useSentinel";
 import { isSignInMessage } from "@/lib/api";
 import { pauseMethodLabel, protocolLabel, protocolPill } from "@/lib/labels";
+import { PUBLIC_MODE } from "@/lib/chains";
 import { buttonClass, formatUsd } from "@/lib/utils";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { useAuth } from "@/providers/AuthProvider";
 import { useSystem } from "@/providers/SystemProvider";
 
@@ -33,7 +35,9 @@ export function ProtocolsView() {
       {protocolsQuery.isPending ? <EmptyState title="Loading" body="Reading protocols from the backend." /> : null}
       {failed ? <ErrorCard message={failed instanceof Error ? failed.message : "Backend request failed."} onRetry={() => void protocolsQuery.refetch()} /> : null}
       <div className="flex justify-end">
-        {session ? (
+        {PUBLIC_MODE ? (
+          <ReadOnlyDemo />
+        ) : session ? (
           <Link href="/onboarding?chain=bsc" className={buttonClass.primary}>
             Add protocol
           </Link>

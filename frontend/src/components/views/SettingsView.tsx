@@ -10,6 +10,8 @@ import { ConfirmDangerModal } from "@/components/ui/ConfirmDangerModal";
 import { SelectInput, TextInput } from "@/components/ui/Field";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import type { AccountRole } from "@/lib/types";
+import { PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { useAuth } from "@/providers/AuthProvider";
 import { useToast } from "@/providers/ToastProvider";
 
@@ -37,6 +39,7 @@ export function SettingsView() {
             className="mt-4 grid max-w-lg gap-3"
             onSubmit={(event) => {
               event.preventDefault();
+              if (PUBLIC_MODE) return;
               updateSession({ name, org, role });
               toast("Profile saved in this browser");
             }}
@@ -57,8 +60,10 @@ export function SettingsView() {
                 ))}
               </SelectInput>
             </label>
-            <Button type="submit">Save profile</Button>
+            {PUBLIC_MODE ? <ReadOnlyDemo /> : <Button type="submit">Save profile</Button>}
           </form>
+        ) : PUBLIC_MODE ? (
+          <ReadOnlyDemo className="mt-2" />
         ) : (
           <p className="mt-2 text-sm text-textMuted">Sign in to edit a profile. The demo console still loads without an account.</p>
         )}
@@ -77,32 +82,40 @@ export function SettingsView() {
       <Card>
         <h2 className="font-display text-lg font-medium">2FA</h2>
         <p className="mt-2 text-sm text-textMuted">Authenticator checks are not connected yet.</p>
-        <Button
-          variant="secondary"
-          className="mt-3"
-          disabled={!session}
-          onClick={() => {
-            if (!session) return;
-            updateSession({ twoFactor: !session.twoFactor });
-            toast(session.twoFactor ? "2FA disabled" : "2FA enabled");
-          }}
-        >
-          {session?.twoFactor ? "Disable 2FA" : "Enable 2FA"}
-        </Button>
+        {PUBLIC_MODE ? (
+          <ReadOnlyDemo className="mt-3" />
+        ) : (
+          <Button
+            variant="secondary"
+            className="mt-3"
+            disabled={!session}
+            onClick={() => {
+              if (!session) return;
+              updateSession({ twoFactor: !session.twoFactor });
+              toast(session.twoFactor ? "2FA disabled" : "2FA enabled");
+            }}
+          >
+            {session?.twoFactor ? "Disable 2FA" : "Enable 2FA"}
+          </Button>
+        )}
       </Card>
       <Card>
         <h2 className="font-display text-lg font-medium">API keys</h2>
         <p className="mt-2 text-sm text-textMuted">For webhooks and programmatic access. The full key is shown once.</p>
-        <Button
-          className="mt-3"
-          onClick={() => {
-            const key = `snl_${crypto.randomUUID().replace(/-/g, "")}`;
-            setFreshKey(key);
-            setKeys((current) => [`snl_…${key.slice(-4)}`, ...current]);
-          }}
-        >
-          Create key
-        </Button>
+        {PUBLIC_MODE ? (
+          <ReadOnlyDemo className="mt-3" />
+        ) : (
+          <Button
+            className="mt-3"
+            onClick={() => {
+              const key = `snl_${crypto.randomUUID().replace(/-/g, "")}`;
+              setFreshKey(key);
+              setKeys((current) => [`snl_…${key.slice(-4)}`, ...current]);
+            }}
+          >
+            Create key
+          </Button>
+        )}
         {freshKey ? <p className="mt-3 break-all rounded-control bg-panel2 p-3 font-mono text-sm">{freshKey}</p> : null}
         <ul className="mt-3 space-y-1 font-mono text-sm text-textMuted">
           {keys.map((key) => (
@@ -113,9 +126,13 @@ export function SettingsView() {
       <Card className="border-dangerBorder">
         <h2 className="font-display text-lg font-medium text-dangerText">Delete account</h2>
         <p className="mt-2 text-sm text-textMuted">Removes the browser account. Protocols in this demo stay on the device.</p>
-        <Button variant="danger" className="mt-3" disabled={!session} onClick={() => setRemoveOpen(true)}>
-          Delete account
-        </Button>
+        {PUBLIC_MODE ? (
+          <ReadOnlyDemo className="mt-3" />
+        ) : (
+          <Button variant="danger" className="mt-3" disabled={!session} onClick={() => setRemoveOpen(true)}>
+            Delete account
+          </Button>
+        )}
       </Card>
       <ConfirmDangerModal
         open={removeOpen}

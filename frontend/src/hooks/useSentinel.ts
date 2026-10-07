@@ -91,7 +91,8 @@ export function useConsole() {
   const qc = useQueryClient();
 
   return {
-    async updatePolicy(id: string, policy: Policy, _change: Omit<PolicyChange, "id">) {
+    async updatePolicy(id: string, policy: Policy, change: Omit<PolicyChange, "id">) {
+      void change;
       await api(`/protocols/${id}/policy`, { method: "PUT", body: JSON.stringify(policy) });
       await qc.invalidateQueries({ queryKey: keys.protocols });
     },

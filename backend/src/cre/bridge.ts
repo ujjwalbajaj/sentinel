@@ -1,5 +1,5 @@
 import type { Incident } from "@prisma/client";
-import { env } from "../config/env.js";
+import { detectionOff, env } from "../config/env.js";
 import { prisma } from "../db/client.js";
 import { json } from "../activity.js";
 import { live } from "../live/hub.js";
@@ -53,6 +53,10 @@ export function enqueueEvidence(incidentId: string, evidence: Evidence): void {
 }
 
 async function deliver(id: string, evidence: Evidence): Promise<void> {
+  if (detectionOff()) {
+    log.info({ id }, "CRE off, not spawning");
+    return;
+  }
   const current = await prisma.incident.findUnique({ where: { id } });
   if (!current) return;
   if (current.status === "paused" || current.status === "reverted_strike" || current.status === "false_positive") {

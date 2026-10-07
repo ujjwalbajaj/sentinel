@@ -16,7 +16,8 @@ import { Stepper } from "@/components/ui/Stepper";
 import { TxPreview } from "@/components/tx/TxPreview";
 import { api, isSignInMessage } from "@/lib/api";
 import { guardianAbi, vulnerableVaultAbi } from "@/lib/abi";
-import { chainMeta } from "@/lib/chains";
+import { chainMeta, PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { protocolLabel } from "@/lib/labels";
 import { checkBytecode } from "@/lib/chainRead";
 import { txUrl } from "@/lib/explorer";
@@ -364,7 +365,9 @@ export function OnboardingWizard() {
                 Vault address
                 <TextInput className="mt-1 font-mono" value={vault} onChange={(event) => setVault(event.target.value)} placeholder="0x" />
               </label>
-              {session ? (
+              {PUBLIC_MODE ? (
+                <ReadOnlyDemo />
+              ) : session ? (
                 <Button type="submit" disabled={busy}>
                   {busy ? "Checking…" : "Continue"}
                 </Button>
@@ -391,7 +394,9 @@ export function OnboardingWizard() {
                   </Button>
                 </div>
               ) : null}
-              {created.pauserGranted ? (
+              {PUBLIC_MODE ? (
+                <ReadOnlyDemo />
+              ) : created.pauserGranted ? (
                 <Button onClick={() => setStep(3)}>Continue</Button>
               ) : (
                 <Button onClick={() => void openPreview("grant")} disabled={busy || !isConnected}>
@@ -413,9 +418,13 @@ export function OnboardingWizard() {
                   </Button>
                 </div>
               ) : null}
-              <Button onClick={() => void openPreview("register")} disabled={busy || !isConnected}>
-                {busy ? "Waiting…" : "Register vault"}
-              </Button>
+              {PUBLIC_MODE ? (
+                <ReadOnlyDemo />
+              ) : (
+                <Button onClick={() => void openPreview("register")} disabled={busy || !isConnected}>
+                  {busy ? "Waiting…" : "Register vault"}
+                </Button>
+              )}
             </div>
           ) : null}
 

@@ -1,5 +1,5 @@
 import { assertSharedAbis, placeholderAbiWarning } from "./shared/load-abi.js";
-import { env } from "./config/env.js";
+import { detectionOff, env } from "./config/env.js";
 import { prisma } from "./db/client.js";
 import { log } from "./log.js";
 import { buildServer } from "./api/server.js";
@@ -15,13 +15,16 @@ const watchOnly = process.argv.includes("--watch-only");
 
 await prisma.$connect();
 const app = await buildServer({ watchOnly });
-await app.listen({ port: env.PORT, host: "127.0.0.1" });
-startWatchers();
+const host = env.PUBLIC_MODE ? "0.0.0.0" : "127.0.0.1";
+await app.listen({ port: env.PORT, host });
+if (!detectionOff()) startWatchers();
 startChainHeads();
 log.info(
   {
     port: env.PORT,
+    host,
     watchOnly,
+    publicMode: env.PUBLIC_MODE,
     cre: env.CRE_MODE,
     evidenceQueue: "after-simulation",
     pauseConfirmed: "before-explanation",

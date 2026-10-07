@@ -5,7 +5,7 @@ import { Server } from "socket.io";
 import { z, ZodError } from "zod";
 import { timingSafeEqual } from "node:crypto";
 import { isSet, mainnetChains } from "../config/chains.js";
-import { env } from "../config/env.js";
+import { env, frontendOrigins } from "../config/env.js";
 import { prisma } from "../db/client.js";
 import { chainWatcher } from "../watchers/index.js";
 import { demoStatus, runDemo } from "../demo/actions.js";
@@ -20,8 +20,13 @@ import { registerReads } from "./reads.js";
 
 export async function buildServer(options: { watchOnly: boolean }): Promise<FastifyInstance> {
   const app = Fastify({ logger: { level: process.env.LOG_LEVEL ?? "info" } });
-  await app.register(cors, { origin: env.FRONTEND_ORIGIN, credentials: true });
+  const origins = frontendOrigins();
+  await app.register(cors, { origin: origins, credentials: true });
   await app.register(cookie);
+  app.addHook("preHandler", async (request, reply) => {
+    if (!publicWriteDenied(request.method, request.url)) return;
+    return reply.status(403).send({ error: "public read-only demo" });
+  });
   registerAuth(app);
   registerProtocols(app);
   registerReads(app);
@@ -125,7 +130,7 @@ export async function buildServer(options: { watchOnly: boolean }): Promise<Fast
 
   await app.ready();
   const io = new Server(app.server, {
-    cors: { origin: env.FRONTEND_ORIGIN, credentials: true },
+    cors: { origin: origins, credentials: true },
   });
   const live = io.of("/live");
   setLiveEmitter((event, payload) => {
@@ -133,6 +138,15 @@ export async function buildServer(options: { watchOnly: boolean }): Promise<Fast
     log.info({ event }, "socket");
   });
   return app;
+}
+
+function publicWriteDenied(method: string, url: string): boolean {
+  if (!env.PUBLIC_MODE) return false;
+  if (method === "OPTIONS") return false;
+  const path = url.split("?")[0] ?? url;
+  if (path === "/demo" || path.startsWith("/demo/")) return true;
+  if (method === "GET" || method === "HEAD") return false;
+  return path === "/protocols" || path.startsWith("/protocols/");
 }
 
 function demoTokenOk(header: string | string[] | undefined): boolean {

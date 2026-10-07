@@ -8,6 +8,8 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import { TextInput } from "@/components/ui/Field";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useChannels, useConsole } from "@/hooks/useSentinel";
+import { PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import type { Channel } from "@/lib/types";
 
 export function IntegrationsView() {
@@ -35,11 +37,13 @@ export function IntegrationsView() {
                 className="mt-2"
                 value={channel.target}
                 placeholder={channel.id === "email" ? "security@protocol.example" : "Webhook or handle"}
+                readOnly={PUBLIC_MODE}
                 onChange={(event) =>
                   save(channels.map((item) => (item.id === channel.id ? { ...item, target: event.target.value, connected: Boolean(event.target.value) } : item)))
                 }
               />
             </label>
+            {PUBLIC_MODE ? <ReadOnlyDemo className="mt-3" /> : (
             <Button
               variant="secondary"
               className="mt-3"
@@ -57,6 +61,7 @@ export function IntegrationsView() {
                 "Send test"
               )}
             </Button>
+            )}
           </Card>
         ))}
       </div>

@@ -8,6 +8,18 @@ for (const [key, value] of Object.entries(parsed)) {
 
 const blank = (value: unknown) => (typeof value === "string" && value.trim() === "" ? undefined : value);
 
+const truthy = (value: unknown) => {
+  if (typeof value === "boolean") return value;
+  if (typeof value !== "string") return false;
+  return ["1", "true", "yes", "on"].includes(value.trim().toLowerCase());
+};
+
+if (truthy(process.env.PUBLIC_MODE)) {
+  delete process.env.VAULT_ADMIN_PRIVATE_KEY;
+  delete process.env.USER_PRIVATE_KEY;
+  delete process.env.ATTACKER_FUNDER_PRIVATE_KEY;
+}
+
 export const env = z
   .object({
     NOWNODES_API_KEY: z.preprocess(blank, z.string().default("")),
@@ -17,7 +29,8 @@ export const env = z
     BASE_WSS: z.preprocess(blank, z.string().default("wss://base.nownodes.io/wss")),
     DATABASE_URL: z.string().min(1),
     CRE_BIN: z.preprocess(blank, z.string().default("")),
-    CRE_MODE: z.preprocess(blank, z.enum(["simulate", "listen", "http"]).default("simulate")),
+    CRE_MODE: z.preprocess(blank, z.enum(["simulate", "listen", "http", "off"]).default("simulate")),
+    PUBLIC_MODE: z.preprocess(truthy, z.boolean()).default(false),
     CRE_REPO_PATH: z.preprocess(blank, z.string().default("")),
     CRE_WORKFLOW_NAME: z.preprocess(blank, z.string().default("")),
     CRE_TARGET: z.preprocess(blank, z.string().default("")),
@@ -61,4 +74,12 @@ export function strikeWei(chainId: number): bigint {
 
 export function strikeReentries(): bigint {
   return BigInt(env.DEMO_STRIKE_REENTRIES);
+}
+
+export function frontendOrigins(): string[] {
+  return env.FRONTEND_ORIGIN.split(",").map((origin) => origin.trim()).filter(Boolean);
+}
+
+export function detectionOff(): boolean {
+  return env.PUBLIC_MODE || env.CRE_MODE === "off";
 }

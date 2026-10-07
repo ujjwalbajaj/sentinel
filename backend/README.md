@@ -26,3 +26,24 @@ npm run dev
 `npm run check:nownodes` checks chain id, a recent block, websocket heads, and the debug tracers on both mainnets.
 
 Demo actions are `POST /demo/:chainId/:action` with header `x-demo-token`. The only transactions this process sends are those demo actions: mixer deposit and withdraw, `setAllowlist`, Attacker deploy, `probe`, `strike(10)`, the control deposit and `withdrawAll`, and vault-admin `unpause`. See `docs/DEMO_RUNBOOK.md`.
+
+## Deploy (read-only)
+
+Render, Node 20. Build command: `npm ci && npx prisma generate`. Start command: `npm start` (`tsx src/index.ts`). The process listens on `PORT` (`0.0.0.0` when `PUBLIC_MODE=true`).
+
+Required environment variables:
+
+- `NOWNODES_API_KEY`
+- `BSC_RPC`
+- `BSC_WSS`
+- `BASE_RPC`
+- `BASE_WSS`
+- `DATABASE_URL`
+- `DIRECT_URL`
+- `PUBLIC_MODE=true`
+- `CRE_MODE=off`
+- `FRONTEND_ORIGIN` (comma-separated browser origins)
+- `JWT_SECRET`
+- `PORT`
+
+`PUBLIC_MODE=true` does not read `VAULT_ADMIN_PRIVATE_KEY`, `USER_PRIVATE_KEY`, or `ATTACKER_FUNDER_PRIVATE_KEY`. Demo writes (`run-attack`, `refill`, `reset`, `recycle`, `fund`, `allowlist`, `deploy`, `probe`, `strike`) and `POST /protocols` return `403` `{"error":"public read-only demo"}`. CRE is not spawned and the detector does not investigate. Chain heads (`chain:head` on socket.io `/live`), GET routes, and `/live` keep running.

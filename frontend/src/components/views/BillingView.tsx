@@ -7,6 +7,8 @@ import { StatusPill } from "@/components/ui/StatusPill";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useProtocols } from "@/hooks/useSentinel";
 import { api } from "@/lib/api";
+import { PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { formatUsd } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { buttonClass } from "@/lib/utils";
@@ -41,14 +43,18 @@ export function BillingView() {
       </div>
       <Card>
         <h2 className="font-display text-lg font-medium">Payment method</h2>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <button type="button" className={method === "usdc" ? buttonClass.primary : buttonClass.secondary} onClick={() => setMethod("usdc")}>
-            USDC
-          </button>
-          <button type="button" className={method === "card" ? buttonClass.primary : buttonClass.secondary} onClick={() => setMethod("card")}>
-            Card
-          </button>
-        </div>
+        {PUBLIC_MODE ? (
+          <ReadOnlyDemo className="mt-4" />
+        ) : (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button type="button" className={method === "usdc" ? buttonClass.primary : buttonClass.secondary} onClick={() => setMethod("usdc")}>
+              USDC
+            </button>
+            <button type="button" className={method === "card" ? buttonClass.primary : buttonClass.secondary} onClick={() => setMethod("card")}>
+              Card
+            </button>
+          </div>
+        )}
         <p className="mt-3 text-sm text-textMuted">
           {method === "usdc" ? "USDC on Base or BNB Chain, once a treasury address is returned by the backend." : "Card checkout is not connected."}
         </p>

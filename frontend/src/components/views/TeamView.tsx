@@ -7,6 +7,8 @@ import { SelectInput, TextInput } from "@/components/ui/Field";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useConsole, useTeam } from "@/hooks/useSentinel";
 import type { TeamRole } from "@/lib/types";
+import { PUBLIC_MODE } from "@/lib/chains";
+import { ReadOnlyDemo } from "@/components/ui/ReadOnlyDemo";
 import { useAuth } from "@/providers/AuthProvider";
 import { useToast } from "@/providers/ToastProvider";
 import { isAddress } from "viem";
@@ -27,6 +29,8 @@ export function TeamView() {
       <Card>
         <h2 className="font-display text-lg font-medium">Invite</h2>
         <p className="mt-1 text-sm text-textMuted">Responder can request an unpause and mark a false positive. Viewer can only read.</p>
+        {PUBLIC_MODE ? <ReadOnlyDemo className="mt-4" /> : null}
+        {PUBLIC_MODE ? null : (
         <form
           className="mt-4 flex flex-wrap gap-2"
           onSubmit={(event) => {
@@ -55,6 +59,7 @@ export function TeamView() {
           </SelectInput>
           <Button type="submit">Invite</Button>
         </form>
+        )}
       </Card>
       <div className="overflow-x-auto rounded-card border border-border bg-panel">
         <table className="w-full min-w-[640px] text-left text-sm">

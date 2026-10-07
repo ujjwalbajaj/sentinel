@@ -1,5 +1,6 @@
 "use client";
 
+import { PUBLIC_MODE } from "@/lib/chains";
 import type { Phase } from "@/lib/warroom";
 import { formatWatch } from "@/lib/warroom";
 
@@ -77,7 +78,7 @@ export function WarRoomHeader({
         <button type="button" className="wr-btn" onClick={onToggleSfx} aria-pressed={sfxOn}>
           SFX {sfxOn ? "on" : "off"}
         </button>
-        <button type="button" className="wr-btn primary" onClick={onReplay} disabled={replayDisabled}>
+        <button type="button" className={`wr-btn primary${PUBLIC_MODE ? " prominent" : ""}`} onClick={onReplay} disabled={replayDisabled}>
           {replayLabel}
         </button>
       </div>

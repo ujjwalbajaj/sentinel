@@ -8,7 +8,7 @@ import { live } from "../live/hub.js";
 import { log } from "../log.js";
 import { nativeUsd, weiToUsd } from "../prices.js";
 import { ensureProtocol } from "../protocols/store.js";
-import { strikeReentries, strikeWei } from "../config/env.js";
+import { detectionOff, strikeReentries, strikeWei } from "../config/env.js";
 import { scoreEvidence } from "../shared/cre/scoring.js";
 import type { Evidence as DisplayEvidence } from "../shared/cre/types.js";
 import { encodeCall } from "../shared/call.js";
@@ -95,6 +95,7 @@ export async function onAttackerTransaction(chain: ChainRuntime, tx: WatchedTx, 
 }
 
 export async function investigate(chain: ChainRuntime, tx: WatchedTx, detectedVia: DetectedVia = "wss"): Promise<void> {
+  if (detectionOff()) return;
   const vault = chain.deployment.vault;
   if (!vault) return;
   const protocol = await ensureProtocol(chain);

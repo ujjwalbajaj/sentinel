@@ -1,40 +1,15 @@
-"use client";
-
 import { Brain, Check, Eye, Hand, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { PublicHeader } from "@/components/shell/PublicHeader";
-import { Button } from "@/components/ui/Button";
-import { Modal } from "@/components/ui/Modal";
-import { DEMO_ENABLED } from "@/lib/chains";
 import { buttonClass } from "@/lib/utils";
 
-const strip = [
-  { label: "Deploy", pause: false },
-  { label: "Fund", pause: false },
-  { label: "Test", pause: false },
-  { label: "SENTINEL pauses", pause: true },
-  { label: "Strike reverts", pause: false },
+const proof = [
+  { label: "Probe block 126072959", href: "https://bscscan.com/block/126072959" },
+  { label: "Pause tx", href: "https://bscscan.com/tx/0x4121c62ed7b0d2190b425c22c836ba9eca51d6167196c8dbc851682843abb84a" },
+  { label: "Strike reverted", href: "https://bscscan.com/tx/0x7a38402d4c9a12315b7a378d200b9ed619d655f90eedef452ae4833d73c07e92" },
 ];
 
-const demoSteps = ["Deploy", "Fund", "Test", "SENTINEL pauses", "Strike reverts"];
-
 export function LandingView() {
-  const [open, setOpen] = useState(false);
-  const [playing, setPlaying] = useState(false);
-  const [step, setStep] = useState(-1);
-
-  useEffect(() => {
-    if (!playing) return undefined;
-    setStep(0);
-    const timers = demoSteps.map((_, index) => window.setTimeout(() => setStep(index), index * 900));
-    const end = window.setTimeout(() => setPlaying(false), demoSteps.length * 900);
-    return () => {
-      timers.forEach((timer) => window.clearTimeout(timer));
-      window.clearTimeout(end);
-    };
-  }, [playing]);
-
   return (
     <>
       <PublicHeader />
@@ -47,34 +22,30 @@ export function LandingView() {
               Live on BNB Chain and Base mainnet. SENTINEL simulates every suspicious call and pauses your protocol before the strike.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/signup" className={buttonClass.primary}>
-                Protect my protocol
+              <Link href="/app/war-room?chain=56" className={buttonClass.primary}>
+                Open War Room
               </Link>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  setOpen(true);
-                  setPlaying(true);
-                }}
-              >
-                Watch the demo
-              </Button>
+              <a href="https://github.com/ujjwalbajaj/sentinel" className={buttonClass.secondary} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
             </div>
           </div>
-          <ol className="grid gap-3 md:grid-cols-5" aria-label="Attack timeline">
-            {strip.map((item, index) => (
-              <li
-                key={item.label}
-                className="rounded-card border border-border bg-panel px-3 py-4 text-center text-sm"
-                style={{
-                  animation: `${item.pause ? "sentinel-pause" : "sentinel-step"} 6s ${index * 0.35}s infinite`,
-                }}
-              >
-                <span className="font-mono text-xs text-textMuted">0{index + 1}</span>
-                <p className="mt-2 font-medium">{item.label}</p>
+          <figure>
+            <video className="aspect-video w-full rounded-card border border-border bg-black" controls playsInline poster="/sentinel-demo.jpg" src="/sentinel-demo.mp4" />
+            <figcaption className="mt-3 text-sm text-textMuted">Recorded live on BNB Chain mainnet · 6 Oct 2026</figcaption>
+            <ul className="mt-4 flex flex-wrap gap-2 text-sm" aria-label="On-chain proof">
+              {proof.map((item) => (
+                <li key={item.href}>
+                  <a className="inline-flex rounded-full border border-border bg-panel px-4 py-2 hover:text-info" href={item.href} target="_blank" rel="noreferrer">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+              <li className="inline-flex items-center rounded-full border border-border bg-panel px-4 py-2 font-mono text-xs">
+                20.0 s probe→pause · 96/100 · 0 BNB lost
               </li>
-            ))}
-          </ol>
+            </ul>
+          </figure>
         </section>
 
         <section id="how" className="border-t border-border">
@@ -154,30 +125,6 @@ export function LandingView() {
           </div>
         </div>
       </footer>
-      <Modal
-        open={open}
-        title="Watch the demo"
-        onClose={() => {
-          setOpen(false);
-          setPlaying(false);
-        }}
-      >
-        <ol className="mt-4 space-y-2">
-          {demoSteps.map((label, index) => (
-            <li key={label} className={`rounded-control border px-3 py-3 text-sm ${step >= index ? "border-info bg-infoBg" : "border-border text-textMuted"}`}>
-              {label}
-            </li>
-          ))}
-        </ol>
-        <div className="mt-4 flex flex-wrap gap-2">
-          <Button onClick={() => setPlaying(true)}>Replay</Button>
-          {DEMO_ENABLED ? (
-            <Link href="/app/demo" className={buttonClass.secondary}>
-              Open demo console
-            </Link>
-          ) : null}
-        </div>
-      </Modal>
     </>
   );
 }

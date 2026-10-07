@@ -26,13 +26,6 @@ function asString(value: unknown, fallback = "") {
   return typeof value === "string" ? value : fallback;
 }
 
-function ageLabel(seconds: number) {
-  if (seconds < 90) return `${Math.max(0, Math.round(seconds))}s`;
-  if (seconds < 3600) return `${Math.round(seconds / 60)} min`;
-  if (seconds < 86400) return `${Math.round(seconds / 3600)} hours`;
-  return `${Math.round(seconds / 86400)} days`;
-}
-
 function secondsBetween(start?: string, end?: string) {
   if (!start || !end) return null;
   const delta = Date.parse(end) - Date.parse(start);

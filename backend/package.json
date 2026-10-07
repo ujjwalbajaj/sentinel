@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "tsx src/index.ts",
+    "start": "tsx src/index.ts",
     "watch:only": "tsx src/index.ts --watch-only",
     "test": "tsx --test src/detector/decide.test.ts src/shared/incident-id.test.ts src/shared/cre-spawn.test.ts src/shared/cre/score-fixture.test.ts src/shared/cre/payload.test.ts src/shared/cre-verdict.test.ts src/shared/watcher-guard.test.ts",
     "sync:cre": "tsx scripts/sync-cre.ts",
@@ -26,6 +27,8 @@
     "pino": "^10.3.1",
     "socket.io": "^4.8.4",
     "socket.io-client": "^4.8.4",
+    "prisma": "^5.22.0",
+    "tsx": "^4.19.2",
     "viem": "^2.23.2",
     "ws": "^8.18.0",
     "zod": "^4.6.5"
@@ -34,8 +37,6 @@
     "@types/node": "^22.10.2",
     "@types/pg": "^8.11.10",
     "@types/ws": "^8.5.13",
-    "prisma": "^5.22.0",
-    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }

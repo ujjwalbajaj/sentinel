@@ -235,7 +235,7 @@ function burst(group: SVGGElement, x: number, y: number, color: string, count: n
     const velocity = speed * (0.4 + Math.random());
     let px = x;
     let py = y;
-    let vx = Math.cos(angle) * velocity;
+    const vx = Math.cos(angle) * velocity;
     let vy = Math.sin(angle) * velocity;
     let life = 1;
     const frame = () => {

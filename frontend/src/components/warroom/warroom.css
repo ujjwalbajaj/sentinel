@@ -256,6 +256,12 @@
   filter: brightness(1.1);
 }
 
+.wr-btn.primary.prominent {
+  padding: 12px 18px;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
 .wr-main {
   display: grid;
   grid-template-columns: minmax(280px, 25%) minmax(0, 1fr) minmax(280px, 25%);

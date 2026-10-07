@@ -17,7 +17,7 @@ import {
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { DEMO_ENABLED } from "@/lib/chains";
+import { DEMO_ENABLED, PUBLIC_MODE } from "@/lib/chains";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthProvider";
 import { Logo } from "./Logo";
@@ -40,7 +40,7 @@ export function Sidebar({ onNavigate, className }: { onNavigate?: () => void; cl
   const router = useRouter();
   const { session, logout, ready } = useAuth();
   const [orgOpen, setOrgOpen] = useState(false);
-  const nav = DEMO_ENABLED ? [...items, { href: "/app/demo", label: "Attack Simulator", icon: FlaskConical }] : items;
+  const nav = DEMO_ENABLED && !PUBLIC_MODE ? [...items, { href: "/app/demo", label: "Attack Simulator", icon: FlaskConical }] : items;
 
   return (
     <div className={cn("flex h-full flex-col bg-panel", className)}>
